@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<meta charset="UTF-8" http-equiv="X-UA-Compatible" content="chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link rel="stylesheet" href="css/bootstrap.min.css">
+
+<link rel="stylesheet" href="ChemDoodleWeb-8.0.0//ChemDoodleWeb.css" type="text/css">
+<link rel="stylesheet" href="ChemDoodleWeb-8.0.0/uis/jquery-ui-1.11.4.css" type="text/css">
+<script type="text/javascript" src="ChemDoodleWeb-8.0.0/ChemDoodleWeb.js"></script>
+<script type="text/javascript" src="ChemDoodleWeb-8.0.0/uis/ChemDoodleWeb-uis.js"></script>
+
+<title>DSG demo</title>
+
+<style type="text/css">
+
+html, body {
+    height: 100%;
+}
+
+html {
+    display: table;
+    margin: auto;
+}
+
+body {
+  font-size: 16px;
+  font-family: "Roboto","Helvetica Neue",Helvetica,Arial,sans-serif;
+  line-height: 1.846;
+  color: #666666;
+  display: table-cell;
+  vertical-align: middle;
+}
+
+#dsg_form {
+    background-color: #dcdcdc;
+	width: 100%;
+	margin-top: 5px;
+    padding-left: 16px;
+    padding-right: 14px;
+    padding-top: 7px;
+    padding-bottom: 15px;
+    border-right: 1px solid #bbb;
+    border-bottom: 1px solid #bbb;
+    border-bottom-right-radius: 20px;
+    border-bottom-left-radius: 20px;
+    border-top-right-radius: 20px;
+    border-top-left-radius: 20px;
+    box-shadow: 0 0 5px #aaa;
+}
+
+input[type="text"] {
+    background-color: #ffffff;
+}
+
+.ui-dialog .ui-dialog-content {
+    border: 0;
+    padding: 5px 5px 5px 5px;
+    background: white;
+    overflow: auto;
+    zoom: 1;
+	font-size: 14px;
+	font-family: Arial
+}
+
+h4, .h4 {
+    font-size: 24px;
+}
+
+#generated_structures {
+	margin-top: 5px;
+}
+
+label {
+    font-weight: normal;
+}
+
+blockquote {
+    font-family: "Roboto","Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size: 13px;
+    line-height: 1.846;
+    color: #666666;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container"><div class="row" id="dsg_form">
+    <form name="Form" id="text_input" action="./run.php" method="POST">
+        <div class="col-md-6">
+            <div class="row"><div class="col-md-12">
+				<h4>Input formula here:</h4>
+            </div></div>
+
+            <div class="row">
+                <div class="form-group col-md-12">
+                    <label for="formula" class="control-label">formula (available elements: C, H, O, N, P, S, F, Cl, Br, I):</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-md-6">
+                    <input id="formula" name="formula" class="form-control" type="text" value="C9H12">
+                </div>
+                <div class="form-group col-md-6">
+                    example: C10H10Cl
+                </div>
+            </div>
+
+            <div class="row"><div class="col-md-12">
+                <label for="formula" class="control-label">Input R groups in this form: [R group formula] [bond ID] [count of group]</label>
+            </div></div>
+			
+            <div class="row">
+                <div class="form-group col-md-6">
+					<textarea name="R_group_input" rows="5" cols="20">=C= 20 1-&#13;CH2- 100 1&#13;C2H2- 100 1</textarea>
+                </div>
+                <div class="form-group col-md-6">
+					<p>
+					example:
+					<blockqoute>
+					<br>-C8H10- 200 1
+					<br>-C8H10- 200 1-4
+					<br>-C8H10- 200 1-
+					<br>=C8H10= 20 1
+					</blockqoute>
+					</p>
+                </div>
+            </div>
+			
+			<div class="row"><div class="col-md-12">
+				<button type="button" id="DSG_Go">Generate</button>
+			</div></div>
+        </div>
+		
+		<!-- Input the existing fragments here -->
+		<div class="col-md-6">
+			<table>
+				<tr>
+					<h4>Draw existing fragments here:</h4>
+				</tr>
+				<tr>
+					<td>
+						<canvas id="sketcher"></canvas>
+					</td>
+				</tr>
+			</table>
+		</div>
+
+    </form>
+
+</div></div>
+
+	<!-- the results are shown here -->
+<div class="container" id="generated_structures">
+    <div class="row"><div class="col-md-12">
+		<canvas id="resultViewer"></canvas>
+    </div></div>
+</div>
+
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
+<script type="text/javascript" src="js/index.js"></script>
+
+</body>
+
+
+</html>
